@@ -7,14 +7,7 @@ html, body, .wrap {
 	.wrap {
 		display: flex;
 		justify-content: center;
-		align-items: center;
 	}
-		.canvas1 {
-			border-top: 1px solid #eaebed;
-			border-radius: 10px;
-			box-shadow: 4px 8px 12px #333;
-		}
-		.canvas2 {
-			position: absolute;
-			z-index: -1;
+		#canvas {
+			/*cursor: none;*/
 		}
