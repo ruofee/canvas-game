@@ -258,5 +258,21 @@ document.onkeydown = (e) => {
   if (e.keyCode == 32 && game.state == 0) {
     game.state = 1
     bird.state = 1
+    time = 0
+    a = setInterval(() => {
+      time = time + 0.001
+    }, 1)
+  } else if (e.keyCode == 32 && game.state == 1){
+    bird.jump = 1
+    bird.v = -10
+    bird.time = time
+  } else if (e.keyCode == 32 && game.state == 2) {
+    time = 0
+    game.state = 1
+    bird.reload()
+
+    a = setInterval(() => {
+      time = time + 0.001
+    }, 1)
   }
 }
