@@ -1,8 +1,6 @@
 let canvas = document.getElementById('canvas')
 let ctx = canvas.getContext('2d')
 
-let time = 0
-
 let screen = {
   width: 400,
   height: 600
@@ -93,7 +91,6 @@ let bird = {
   state_menu: 0, //0: 向下 1: 向上
   jump: 0, //0: 向下 1: 向上
   v: 0, //速度
-  time: 0,
   g: 9.8,
   draw: function (img) {
     if (!this.state) {
@@ -121,8 +118,6 @@ let bird = {
     game.state = 2
   },
   reload: function () {
-    window.clearInterval(a)
-
     pipe.pipe_up.x = canvas.width
     pipe.pipe_down.x = canvas.width
     pipe.state = false
@@ -131,7 +126,6 @@ let bird = {
     this.state = 0
     this.v = 0
     this.state_menu = 0
-    this.time = 0
     this.y = canvas.height/2 - 35
 
     score.value = 0
@@ -140,8 +134,8 @@ let bird = {
     if (this.jump) {
       if (this.v < 0) {
         if (this.y > 0) {
-          this.v = this.v + this.g * (time - this.time)
-          this.y = this.y + (this.v * (time - this.time) - 0.5 * this.g * (time - this.time) * (time - this.time)) * 15
+          this.v = this.v + this.g * (1/60) * 4
+          this.y = this.y + (this.v * 1/60 - 0.5 * this.g * 1/60 * 1/60) * 80
         } else {
           this.over()
         }
@@ -150,9 +144,9 @@ let bird = {
         this.jump = 0
       }
     } else {
-      this.v = this.v + this.g * (time - this.time)
+       this.v = this.v + this.g * (1/60) * 2
       if (this.y < canvas.height) {
-        this.y = this.y + (this.v * (time - this.time) - 0.5 * this.g * (time - this.time) * (time - this.time)) * 2
+        this.y = this.y + (this.v * (1/60) - 0.5 * this.g * (1/60) * (1/60)) * 100
       } else {
         this.over()
       }
