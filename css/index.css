@@ -10,4 +10,6 @@ html, body, .wrap {
 	}
 		#canvas {
 			/*cursor: none;*/
+			width: 400px;
+			height: 600px;
 		}
