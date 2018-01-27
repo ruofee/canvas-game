@@ -53,10 +53,6 @@ num_7.src = './image/num_7.png'
 num_8.src = './image/num_8.png'
 num_9.src = './image/num_9.png'
 
-function random_pipe() {
-  return Math.random() * (canvas.height - 60 - 230) + 230
-}
-
 let score = {
   value: 0,
   draw_one: function (img) {
@@ -230,16 +226,16 @@ let land = {
   land2: canvas.width,
   load: true,
   working: function () {
-    if (land.load) {
-      if (land.land1 > -canvas.width) {
-        land.land1 = land.land1 - 3
+    if (this.load) {
+      if (this.land1 > -canvas.width) {
+        this.land1 = this.land1 - 5
       } else {
-        land.land1 = canvas.width - 5
+        this.land1 = canvas.width - 5
       }
-      if (land.land2 > -canvas.width) {
-        land.land2 = land.land2 - 3
+      if (this.land2 > -canvas.width) {
+        this.land2 = this.land2 - 5
       } else {
-        land.land2 = canvas.width - 5
+        this.land2 = canvas.width - 5
       }
     }
     ctx.drawImage(land1, land.land1, canvas.height - 60, 400, 60)
@@ -250,6 +246,9 @@ let land = {
 let pipe = {
   width: 90,
   height: canvas.height,
+  random_pipe: function () {
+    return Math.random() * (canvas.height - 60 - 230) + 230
+  },
   pipe_up: {
     x: canvas.width,
     y: 0
@@ -276,8 +275,7 @@ let pipe = {
         this.pipe_down.x = canvas.width
       }
     } else {
-      let x = random_pipe()
-      console.log(x)
+      let x = this.random_pipe()
       this.pipe_up.y = x
       this.pipe_down.y = x - 170 - this.height
       this.state = true
@@ -319,6 +317,10 @@ let bird = {
     pipe.pipe_up.x = canvas.width
     pipe.pipe_down.x = canvas.width
     pipe.state = false
+
+    land.load = true
+    land.land1 = 0
+    land.land2 = canvas.width
 
     this.jump = 0 
     this.state = 0
