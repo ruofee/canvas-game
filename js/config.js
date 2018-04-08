@@ -1,231 +1,68 @@
-let canvas = document.getElementById('canvas')
+let canvas = document.getElementById('Canvas')
 let ctx = canvas.getContext('2d')
 
-let game = {
-  state: 0, //0: menu, 1: game 2: reload
-  width: 400,
-  height: 600,
-  g: 9.8
-}
-
-canvas.width = game.width
-canvas.height = game.height
-
-let title = new Image()
-let game_over = new Image()
-let land1 = new Image()
-let land2 = new Image()
-let pipe_down = new Image()
-let pipe_up = new Image()
-let bg = new Image()
-let bird_0 = new Image()
-let bird_1 = new Image()
-let bird_2 = new Image()
-let num_0 = new Image()
-let num_1 = new Image()
-let num_2 = new Image()
-let num_3 = new Image()
-let num_4 = new Image()
-let num_5 = new Image()
-let num_6 = new Image()
-let num_7 = new Image()
-let num_8 = new Image()
-let num_9 = new Image()
-
-title.src = './image/title.png'
-game_over.src = './image/text_game_over.png'
-land1.src = './image/land.png'
-land2.src = './image/land.png'
-pipe_down.src = './image/pipe_down.png'
-pipe_up.src = './image/pipe_up.png'
-bg.src = './image/bg_day.png'
-bird_0.src = './image/bird0_1.png'
-bird_1.src = './image/bird0_0.png'
-bird_2.src = './image/bird0_2.png'
-num_0.src = './image/num_0.png'
-num_1.src = './image/num_1.png'
-num_2.src = './image/num_2.png'
-num_3.src = './image/num_3.png'
-num_4.src = './image/num_4.png'
-num_5.src = './image/num_5.png'
-num_6.src = './image/num_6.png'
-num_7.src = './image/num_7.png'
-num_8.src = './image/num_8.png'
-num_9.src = './image/num_9.png'
-
-let score = {
-  value: 0,
-  draw_one: function (img) {
-    ctx.drawImage(img, canvas.width/2 - 20, 100, 40, 80)
-  },
-  draw_two: function (img) {
-    ctx.drawImage(img, canvas.width/2 - 40, 100, 40, 80)
-  },
-  draw_three: function (img) {
-    ctx.drawImage(img, canvas.width/2, 100, 40, 80)
-  },
-  draw_four: function (img) {
-    ctx.drawImage(img, canvas.width/2 - 20, canvas.height/2 - 30, 40, 80)
-  },
-  draw_five: function (img) {
-    ctx.drawImage(img, canvas.width/2 - 40, canvas.height/2 - 30, 40, 80)
-  },
-  draw_six: function (img) {
-    ctx.drawImage(img, canvas.width/2, canvas.height/2 - 30, 40, 80)
-  },
-  draw_game: function () {
-    if (this.value < 10) {
-      switch (this.value) {
-        case 0: this.draw_one(num_0)
-                break
-        case 1: this.draw_one(num_1)
-                break
-        case 2: this.draw_one(num_2)
-                break
-        case 3: this.draw_one(num_3)
-                break
-        case 4: this.draw_one(num_4)
-                break
-        case 5: this.draw_one(num_5)
-                break
-        case 6: this.draw_one(num_6)
-                break
-        case 7: this.draw_one(num_7)
-                break
-        case 8: this.draw_one(num_8)
-                break
-        case 9: this.draw_one(num_9)
-                break
-      }
-    } else if (this.value < 100) {
-      let x = parseInt(this.value/10)
-      let y = this.value % 10
-      switch (x) {
-        case 0: this.draw_two(num_0)
-                break
-        case 1: this.draw_two(num_1)
-                break
-        case 2: this.draw_two(num_2)
-                break
-        case 3: this.draw_two(num_3)
-                break
-        case 4: this.draw_two(num_4)
-                break
-        case 5: this.draw_two(num_5)
-                break
-        case 6: this.draw_two(num_6)
-                break
-        case 7: this.draw_two(num_7)
-                break
-        case 8: this.draw_two(num_8)
-                break
-        case 9: this.draw_two(num_9)
-                break
-      }
-      switch (y) {
-        case 0: this.draw_three(num_0)
-                break
-        case 1: this.draw_three(num_1)
-                break
-        case 2: this.draw_three(num_2)
-                break
-        case 3: this.draw_three(num_3)
-                break
-        case 4: this.draw_three(num_4)
-                break
-        case 5: this.draw_three(num_5)
-                break
-        case 6: this.draw_three(num_6)
-                break
-        case 7: this.draw_three(num_7)
-                break
-        case 8: this.draw_three(num_8)
-                break
-        case 9: this.draw_three(num_9)
-                break
-      }
-    }
-  },
-  draw_reload: function () {
-    if (this.value < 10) {
-      switch (this.value) {
-        case 0: this.draw_four(num_0)
-                break
-        case 1: this.draw_four(num_1)
-                break
-        case 2: this.draw_four(num_2)
-                break
-        case 3: this.draw_four(num_3)
-                break
-        case 4: this.draw_four(num_4)
-                break
-        case 5: this.draw_four(num_5)
-                break
-        case 6: this.draw_four(num_6)
-                break
-        case 7: this.draw_four(num_7)
-                break
-        case 8: this.draw_four(num_8)
-                break
-        case 9: this.draw_four(num_9)
-                break
-      }
-    } else if (this.value < 100) {
-      let x = parseInt(this.value/10)
-      let y = this.value % 10
-      switch (x) {
-        case 0: this.draw_five(num_0)
-                break
-        case 1: this.draw_five(num_1)
-                break
-        case 2: this.draw_five(num_2)
-                break
-        case 3: this.draw_five(num_3)
-                break
-        case 4: this.draw_five(num_4)
-                break
-        case 5: this.draw_five(num_5)
-                break
-        case 6: this.draw_five(num_6)
-                break
-        case 7: this.draw_five(num_7)
-                break
-        case 8: this.draw_five(num_8)
-                break
-        case 9: this.draw_five(num_9)
-                break
-      }
-      switch (y) {
-        case 0: this.draw_six(num_0)
-                break
-        case 1: this.draw_six(num_1)
-                break
-        case 2: this.draw_six(num_2)
-                break
-        case 3: this.draw_six(num_3)
-                break
-        case 4: this.draw_six(num_4)
-                break
-        case 5: this.draw_six(num_5)
-                break
-        case 6: this.draw_six(num_6)
-                break
-        case 7: this.draw_six(num_7)
-                break
-        case 8: this.draw_six(num_8)
-                break
-        case 9: this.draw_six(num_9)
-                break
-      }
-    }
+let img = {
+  title: new Image(),
+  game_over: new Image(),
+  land1: new Image(),
+  land2: new Image(),
+  pipe_down: new Image(),
+  pipe_up: new Image(),
+  bg: new Image(),
+  bird_0: new Image(),
+  bird_1: new Image(),
+  bird_2: new Image(),
+  num_0: new Image(),
+  num_1: new Image(),
+  num_2: new Image(),
+  num_3: new Image(),
+  num_4: new Image(),
+  num_5: new Image(),
+  num_6: new Image(),
+  num_7: new Image(),
+  num_8: new Image(),
+  num_9: new Image(),
+  load () {
+    this.title.src = './image/title.png'
+    this.game_over.src = './image/text_game_over.png'
+    this.land1.src = './image/land.png'
+    this.land2.src = './image/land.png'
+    this.pipe_down.src = './image/pipe_down.png'
+    this.pipe_up.src = './image/pipe_up.png'
+    this.bg.src = './image/bg_day.png'
+    this.bird_0.src = './image/bird0_1.png'
+    this.bird_1.src = './image/bird0_0.png'
+    this.bird_2.src = './image/bird0_2.png'
+    this.num_0.src = './image/num_0.png'
+    this.num_1.src = './image/num_1.png'
+    this.num_2.src = './image/num_2.png'
+    this.num_3.src = './image/num_3.png'
+    this.num_4.src = './image/num_4.png'
+    this.num_5.src = './image/num_5.png'
+    this.num_6.src = './image/num_6.png'
+    this.num_7.src = './image/num_7.png'
+    this.num_8.src = './image/num_8.png'
+    this.num_9.src = './image/num_9.png'
   }
 }
 
-let land = {
-  land1: 0,
-  land2: canvas.width,
-  load: true,
-  working: function () {
+//类集合
+class Game {
+  constructor (state, width, height, g) {
+    this.state = state
+    this.width = width
+    this.height = height
+    this.g = g
+  }
+}
+
+class Land {
+  constructor (land1, land2, load) {
+    this.land1 = land1
+    this.land2 = land2
+    this.load = load
+  }
+  working () {
     if (this.load) {
       if (this.land1 > -canvas.width) {
         this.land1 = this.land1 - 5
@@ -238,32 +75,88 @@ let land = {
         this.land2 = canvas.width - 5
       }
     }
-    ctx.drawImage(land1, land.land1, canvas.height - 60, 400, 60)
-    ctx.drawImage(land2, land.land2, canvas.height - 60, 400, 60)
+    ctx.drawImage(img.land1, this.land1, canvas.height - 60, 400, 60)
+    ctx.drawImage(img.land2, this.land2, canvas.height - 60, 400, 60)
   }
 }
 
-let pipe = {
-  width: 90,
-  height: canvas.height,
-  random_pipe: function () {
+class Score {
+  constructor (value) {
+    this.value = value
+  }
+  draw_one (img) {
+    ctx.drawImage(img, canvas.width/2 - 20, 100, 40, 80)
+  }
+  draw_two (img) {
+    ctx.drawImage(img, canvas.width/2 - 40, 100, 40, 80)
+  }
+  draw_three (img) {
+    ctx.drawImage(img, canvas.width/2, 100, 40, 80)
+  }
+  draw_four (img) {
+    ctx.drawImage(img, canvas.width/2 - 20, canvas.height/2 - 30, 40, 80)
+  }
+  draw_five (img) {
+    ctx.drawImage(img, canvas.width/2 - 40, canvas.height/2 - 30, 40, 80)
+  }
+  draw_six (img) {
+    ctx.drawImage(img, canvas.width/2, canvas.height/2 - 30, 40, 80)
+  }
+  draw_single () {
+    this.draw_one(img[`num_${this.value}`])
+  }
+  draw_double () {
+    let x = parseInt(this.value/10)
+    let y = this.value % 10
+    this.draw_two(img[`num_${x}`])
+    this.draw_three(img[`num_${y}`])
+  }
+  draw_game () {
+    let length = this.value.toString().length
+    switch (length) {
+      case 1: this.draw_single()
+              break
+      case 2: this.draw_double()
+              break
+    }
+  }
+  draw_reload () {
+    let length = this.value.toString().length
+    switch (length) {
+      case 1: this.draw_four(img[`num_${this.value}`])
+              break
+      case 2: let x = parseInt(this.value/10)
+              let y = this.value % 10
+              this.draw_five(img[`num_${x}`])
+              this.draw_six(img[`num_${y}`])
+              break
+    }
+  }
+}
+
+class Pipe {
+  constructor (width, height) {
+    this.width = width
+    this.height = height
+    this.pipe_up = {
+      x: canvas.width + 500,
+      y: 0
+    }
+    this.pipe_down = {
+      x: canvas.width + 500,
+      y: 0
+    }
+    this.speed = 5
+    this.state = false
+  }
+  random_pipe () {
     return Math.random() * (canvas.height - 60 - 230) + 230
-  },
-  pipe_up: {
-    x: canvas.width,
-    y: 0
-  },
-  pipe_down: {
-    x: canvas.width,
-    y: 0
-  },
-  draw: function (img1, img2) {
+  }
+  draw (img1, img2) {
     ctx.drawImage(img1, this.pipe_up.x, this.pipe_up.y, this.width, this.height)
     ctx.drawImage(img2, this.pipe_down.x, this.pipe_down.y, this.width, this.height)
-  },
-  speed: 5,
-  state: false, //false: reload true: load
-  load: function () {
+  }
+  load () {
     if (this.state) {
       if (this.pipe_up.x > -90) { 
         this.pipe_up.x -= this.speed
@@ -283,16 +176,18 @@ let pipe = {
   }
 }
 
-let bird = {
-  state: 0, // 0: 滑翔 1~5: 挥翅1 6~10: 挥翅2
-  width: 70,
-  height: 70,
-  x: 140,
-  y: canvas.height/2 - 35,
-  state_menu: 0, //menu状态的小鸟 0: 向下 1: 向上
-  jump: 0, //1: 向上飞
-  v: 0, //速度
-  draw: function (img) {
+class Bird {
+  constructor (width, height, x, y) {
+    this.width = width
+    this.height = height
+    this.x = x
+    this.y = y
+    this.state = 0
+    this.state_menu = 0
+    this.jump = 0
+    this.v = 0
+  }
+  draw (img) {
     if (!this.state) {
       ctx.drawImage(img, this.x, this.y, this.width, this.height)
     } else {
@@ -308,14 +203,14 @@ let bird = {
       ctx.drawImage(img, 0, 0, this.width, this.height)
       ctx.restore()
     }
-  },
-  over: function () {
+  }
+  over () {
     land.load = false
     game.state = 2
-  },
-  reload: function () {
-    pipe.pipe_up.x = canvas.width
-    pipe.pipe_down.x = canvas.width
+  }
+  reload () {
+    pipe.pipe_up.x = canvas.width + 500
+    pipe.pipe_down.x = canvas.width + 500
     pipe.state = false
 
     land.load = true
@@ -329,8 +224,8 @@ let bird = {
     this.y = canvas.height/2 - 35
 
     score.value = 0
-  },
-  fly_menu: function () {
+  }
+  fly_menu () {
     if (this.state_menu) {
       if (this.y > canvas.height/2 - 40) {
         this.y = this.y - 0.7
@@ -344,20 +239,20 @@ let bird = {
         this.state_menu = 1
       }
     }
-  },
-  fly_state: function () {
+  }
+  fly_state () {
     if (this.state <= 10 && this.state >= 1) {
       this.state++
     } else {
       this.state = 1
     }
     if (this.state <= 5 && this.state >= 1) {
-      this.draw(bird_1)
+      this.draw(img.bird_1)
     } else {
-      this.draw(bird_2)
+      this.draw(img.bird_2)
     }
-  },
-  fly_working: function () {
+  }
+  fly_working () {
     if (this.jump) {
       if (this.v < 0) {
         if (this.y > 0) {
@@ -378,8 +273,8 @@ let bird = {
         this.over()
       }
     }
-  },
-  CD: function () {
+  }
+  CD () {
     let a = this.x + this.width/2
     let b = this.y
     let c = this.y + this.height
@@ -388,3 +283,82 @@ let bird = {
     }
   } //碰撞检测
 }
+
+//事件函数
+function canvas_load(width, height) {
+  canvas.width = width
+  canvas.height = height 
+}
+
+function menu() {
+  bird.draw(img.bird_0)
+
+  bird.fly_menu()
+
+  ctx.drawImage(img.title, canvas.width/2 - 150, 80, 300, 80)
+}
+
+function working() {
+  bird.fly_working()
+  pipe.load()
+  pipe.draw(img.pipe_up, img.pipe_down)
+  bird.fly_state()
+  bird.CD()
+  score.draw_game()
+}
+
+function reload() {
+  pipe.draw(img.pipe_up, img.pipe_down)
+  bird.draw(img.bird_0)
+
+  ctx.drawImage(img.game_over, canvas.width/2 - 150, canvas.height/2 - 160, 300, 70)
+
+  score.draw_reload()
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+  ctx.drawImage(img.bg, 0, 0, canvas.width, canvas.height + 100)
+
+  switch (game.state) {
+    case 0: menu()
+            break
+    case 1: working()
+            break
+    case 2: reload()
+            break
+  }
+
+  land.working()
+
+  window.requestAnimationFrame(draw)
+}
+
+function clickEvent() {
+  if (game.state == 0) {
+    game.state = 1
+    bird.state = 1
+  } else if (game.state == 1){
+    bird.jump = 1
+    bird.v = -10
+  } else if (game.state == 2) {
+    game.state = 1
+    bird.reload()
+  }
+}
+
+function keydownEvent(e) {
+  if (e.keyCode == 32 && game.state == 0) {
+    game.state = 1
+    bird.state = 1
+  } else if (e.keyCode == 32 && game.state == 1){
+    bird.jump = 1
+    bird.v = -10
+  } else if (e.keyCode == 32 && game.state == 2) {
+    game.state = 1
+    bird.reload()
+  }
+}
+
+
