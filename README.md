@@ -3,14 +3,11 @@
 
 ------
 
-#### 克隆到本地运行
+#### 使用cmd克隆项目到本地并运行
 
-下载到本地, 命令行输入:
+1. ```cmd
+   git clone https://github.com/ruofee/canvas_flappy_bird.git
+   ```
 
-```
-mkdir canvas_flappy_bird
-cd canvas_flappy_bird
-git clone https://github.com/ruofee/canvas_flappy_bird.git
-```
+2. 进入canvas_flappy_bird文件夹并打开index.html运行游戏
 
-之后在本地打开index.html便能运行
