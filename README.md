@@ -3,11 +3,12 @@
 
 ------
 
-#### 使用cmd克隆项目到本地并运行
+#### 克隆项目到本地并运行
 
-1. ```cmd
-   git clone https://github.com/ruofee/canvas_flappy_bird.git
-   ```
+打开命令行
 
-2. 进入canvas_flappy_bird文件夹并打开index.html运行游戏
-
+```
+git clone https://github.com/ruofee/canvas_flappy_bird.git
+cd canvas_flappy_bird
+index.html
+```
